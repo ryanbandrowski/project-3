@@ -29,7 +29,7 @@ var geoJson;
 
 // Grabbing our GeoJSON data..
 d3.json(link, function(data) {
-  console.log(data)
+    console.log(data)
     // Creating a geoJSON layer with the retrieved data
     geoJson = L.geoJson(data, {
         // Style for each feature (in this case a neighborhood)
