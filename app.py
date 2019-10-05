@@ -96,6 +96,8 @@ def countyRates():
     sel = [
         county_rates.County,
         county_rates.County_Type,
+        county_rates.Lat,
+        county_rates.Lng,
         county_rates.Total_Crime,
         county_rates.Violent_Crime,
         county_rates.Murder_And_Nonnegligent_Manslaughter,
@@ -105,7 +107,10 @@ def countyRates():
         county_rates.Property_Crime,
         county_rates.Burglary,
         county_rates.Larceny_Theft,
-        county_rates.Motor_Vehicle_Theft
+        county_rates.Motor_Vehicle_Theft,
+        county_rates.Total_Officers,
+        county_rates.Population,
+        county_rates.Land_Area
     ]
 
     results = db.session.query(*sel).all()
@@ -118,16 +123,21 @@ def countyRates():
 
         county_rates_dict["County"] = result[0]
         county_rates_dict["County_Type"] = result[1]
-        county_rates_dict["Total_Crime"] = result[2]
-        county_rates_dict["Violent_Crime"] = result[3]
-        county_rates_dict["Murder_And_Nonnegligent_Manslaughter"] = result[4]
-        county_rates_dict["Forcible_Rape"] = result[5]
-        county_rates_dict["Robbery"] = result[6]
-        county_rates_dict["Aggravated_Assault"] = result[7]
-        county_rates_dict["Property_Crime"] = result[8]
-        county_rates_dict["Burglary"] = result[9]
-        county_rates_dict["Larceny_Theft"] = result[10]
-        county_rates_dict["Motor_Vehicle_Theft"] = result[11]
+        county_rates_dict["Lat"] = result[2]
+        county_rates_dict["Lng"] = result[3]
+        county_rates_dict["Total_Crime"] = result[4]
+        county_rates_dict["Violent_Crime"] = result[5]
+        county_rates_dict["Murder_And_Nonnegligent_Manslaughter"] = result[6]
+        county_rates_dict["Forcible_Rape"] = result[7]
+        county_rates_dict["Robbery"] = result[8]
+        county_rates_dict["Aggravated_Assault"] = result[9]
+        county_rates_dict["Property_Crime"] = result[10]
+        county_rates_dict["Burglary"] = result[11]
+        county_rates_dict["Larceny_Theft"] = result[12]
+        county_rates_dict["Motor_Vehicle_Theft"] = result[13]
+        county_rates_dict["Total_Officers"] = result[14]
+        county_rates_dict["Population"] = result[15]
+        county_rates_dict["Land_Area"] = result[16]
         
         dict_list.append(county_rates_dict)
 
@@ -142,6 +152,7 @@ def city():
         city_data.Lat,
         city_data.Lng,
         city_data.County,
+        city_data.Total_Crime,
         city_data.Violent_Crime,
         city_data.Murder_And_Nonnegligent_Manslaughter,
         city_data.Forcible_Rape,
@@ -166,16 +177,17 @@ def city():
         city_dict["Lat"] = result[1]
         city_dict["Lng"] = result[2]
         city_dict["County"] = result[3]
-        city_dict["Violent_Crime"] = result[4]
-        city_dict["Murder_And_Nonnegligent_Manslaughter"] = result[5]
-        city_dict["Forcible_Rape"] = result[6]
-        city_dict["Robbery"] = result[7]
-        city_dict["Aggravated_Assault"] = result[8]
-        city_dict["Property_Crime"] = result[9]
-        city_dict["Burglary"] = result[10]
-        city_dict["Larceny_Theft"] = result[11]
-        city_dict["Motor_Vehicle_Theft"] = result[12]
-        city_dict["Total_Officers"] = result[13]
+        city_dict['Total_Crime'] = result[4]
+        city_dict["Violent_Crime"] = result[5]
+        city_dict["Murder_And_Nonnegligent_Manslaughter"] = result[6]
+        city_dict["Forcible_Rape"] = result[7]
+        city_dict["Robbery"] = result[8]
+        city_dict["Aggravated_Assault"] = result[9]
+        city_dict["Property_Crime"] = result[10]
+        city_dict["Burglary"] = result[11]
+        city_dict["Larceny_Theft"] = result[12]
+        city_dict["Motor_Vehicle_Theft"] = result[13]
+        city_dict["Total_Officers"] = result[14]
         
         dict_list.append(city_dict)
 

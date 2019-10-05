@@ -45,7 +45,7 @@ d3.json(link, function(data) {
                     mouseover: function(event) {
                         layer = event.target;
                         layer.setStyle({
-                            fillOpacity: 0.7
+                            fillOpacity: 0.5
                         });
                     },
 
@@ -68,7 +68,7 @@ d3.json(link, function(data) {
 
 
 
-var markers = L.layerGroup();
+var citymarkers = L.layerGroup();
 
 d3.json("/city", function(response) {
     console.log(response);
@@ -78,10 +78,11 @@ d3.json("/city", function(response) {
         var lat = response[i].Lat
         var lng = response[i].Lng
 
-        markers.addLayer(L.marker([lat,lng])
+        citymarkers.addLayer(L.marker([lat,lng])
             .bindPopup(
-                "<strong>City: </strong>" + response[i].City + "<br>" +
+                "<h3>City: " + response[i].City + "</h3>" +
                 "<strong>County: </strong>" + response[i].County + "<br><br>" +
+                "<strong>Total Crime: </strong>" + response[i].Total_Crime + "<br><br>" +
                 "<strong>Violent Crime: </strong>" + response[i].Violent_Crime + "<br>" +
                 "<strong>Murder/Manslaughter: </strong>" + response[i].Murder_And_Nonnegligent_Manslaughter + "<br>" +
                 "<strong>Forcible Rape: </strong>" + response[i].Forcible_Rape + "<br>" +
@@ -99,9 +100,52 @@ d3.json("/city", function(response) {
 
 map.on('zoomend', function() {
     if (map.getZoom() <9){
-            map.removeLayer(markers);
+            map.removeLayer(citymarkers);
     }
     else {
-            map.addLayer(markers);
+            map.addLayer(citymarkers);
+    }
+});
+
+
+
+var countymarkers = L.layerGroup();
+
+d3.json("/county_rates", function(response) {
+    console.log(response);
+
+    for (var i = 0; i < response.length; i++) {
+        
+        var lat = response[i].Lat
+        var lng = response[i].Lng
+
+        countymarkers.addLayer(L.marker([lat,lng])
+            .bindPopup(
+                "<h3>County: " + response[i].County + "</h3><h4>Crime Rate per 10,000 citizens</h4>" +
+                "<strong>Total Crime: </strong>" + response[i].Total_Crime + "<br>  <br>" +
+                "<strong>Violent Crime: </strong>" + response[i].Violent_Crime + "<br>" +
+                "<strong>Murder/Manslaughter: </strong>" + response[i].Murder_And_Nonnegligent_Manslaughter + "<br>" +
+                "<strong>Forcible Rape: </strong>" + response[i].Forcible_Rape + "<br>" +
+                "<strong>Robbery: </strong>" + response[i].Robbery + "<br>" +
+                "<strong>Aggravated Assault: </strong>" + response[i].Aggravated_Assault + "<br><br>" +
+                "<strong>Property Crime: </strong>" + response[i].Property_Crime + "<br>" +
+                "<strong>Burglary: </strong>" + response[i].Burglary + "<br>" +
+                "<strong>Larceny-Theft: </strong>" + response[i].Larceny_Theft + "<br>" +
+                "<strong>Motor Vehicle Theft: </strong>" + response[i].Motor_Vehicle_Theft + "<br><br>" +
+                "<strong>Total Officers: </strong>" + response[i].Total_Officers + "<br>" +
+                "<strong>Population: </strong>" + response[i].Population + "<br>" +
+                "<strong>Land Area: </strong>" + response[i].Land_Area + " sq. miles<br>"
+            )
+        );
+    }
+    map.addLayer(countymarkers);
+});
+
+map.on('zoomend', function() {
+    if (map.getZoom() >=9){
+            map.removeLayer(countymarkers);
+    }
+    else {
+            map.addLayer(countymarkers);
     }
 });
