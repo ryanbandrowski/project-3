@@ -59,9 +59,7 @@ d3.json(link, function(data) {
                 });
 
                 layer.bindPopup(
-                    "<h2>" + county.County + " Crime Rates</h2>" +
-                    "<h3>Per 10,000 People</h3>" +
-                    "<strong>Total Crime: " + county.Total_Crime
+                    "<h1>" + feature.properties.COUNTY_NAME + "</h1>"
                 );
             }
         }).addTo(map);
